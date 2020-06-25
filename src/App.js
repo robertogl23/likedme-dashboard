@@ -1,19 +1,27 @@
 import React from "react";
-import NavBar from "./components/NavBar";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import {AppContextProvider} from "./context/AppContext";
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <NavBar />
-        <Switch>
-          <Route path="/">
-            <Login />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <AppContextProvider>
+      <Router>
+        <div className="App">
+          <Switch>
+            <Route exact path="/">
+              <Login />
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
+            <Route path="*">
+              <h1>404</h1>
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </AppContextProvider>
   );
 }
 

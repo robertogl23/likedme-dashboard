@@ -1,34 +1,42 @@
 import React from "react";
-import { Table } from "react-bootstrap";
-export default function TableProducts() {
+import { Table, Button } from "react-bootstrap";
+export default function TableProducts({ products, handleShow, handleSelect }) {
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
+          <th>Nombre producto</th>
+          <th>Tipo</th>
+          <th>Catidad</th>
+          <th>Precio</th>
+          <th>Disponible</th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan="2">Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        {products.map((p, i) => (
+          <tr key={i}>
+            <td>{p.nameProduct}</td>
+            <td>{p.type}</td>
+            <td>{p.quantity}</td>
+            <td>{p.price} USD</td>
+            <td>Si</td>
+            <td>
+              <>
+                <Button
+                  variant="info"
+                  onClick={() => {
+                    handleShow();
+                    handleSelect(p);
+                  }}
+                >
+                  Editar
+                </Button>{" "}
+                <Button variant="danger">Eliminar</Button>{" "}
+              </>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   );
