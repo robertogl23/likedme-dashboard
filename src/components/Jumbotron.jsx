@@ -1,15 +1,20 @@
-import React from "react";
+import React,{useState} from "react";
 import { Jumbotron, Button } from "react-bootstrap";
-export default function JumBotron() {
+export default function JumBotron({sessionID}) {
+  const [data, setDate] = useState(JSON.parse(sessionStorage.getItem('id')))
   return (
     <Jumbotron>
-      <h1>Hello, world!</h1>
+      <h1>Dashboard, LikedMe!</h1>
       <p>
-        This is a simple hero unit, a simple jumbotron-style component for
-        calling extra attention to featured content or information.
+      <label>Admin: </label >
+         {data.firtsName}
+      <p>
+      <label>Matricula: </label >
+         {data.enrollment}
+      </p>
       </p>
       <p>
-        <Button variant="primary">Learn more</Button>
+        <Button variant="primary">Perfl</Button>
       </p>
     </Jumbotron>
   );
