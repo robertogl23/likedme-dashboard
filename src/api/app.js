@@ -34,3 +34,11 @@ export async function getFetch(urlApi) {
     return err;
   }
 }
+export async function delateFetch(urlApi) {
+  try {
+    const response = await fetch(`${url}/${urlApi}`,{method: "DELETE",});
+    return await response.json()
+  } catch (err) {
+    return err;
+  }
+}

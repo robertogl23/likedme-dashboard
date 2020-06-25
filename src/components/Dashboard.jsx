@@ -1,39 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getFetch, } from "../api/app";
+import { getFetch } from "../api/app";
 import NavBar from "./NavBar";
 import TableProducts from "./TableProducts";
 import Jumbotron from "./Jumbotron";
-import FormProductAdd from "./FormProductAdd";
-import {  Modal, Spinner } from "react-bootstrap";
+import FormProductEdit from "./FormProductEdit";
+import { Modal, Spinner, Button, Form, Row, Col } from "react-bootstrap";
 export default function Dashboard() {
 	const history = useHistory();
 	const [sessionID] = useState(sessionStorage.getItem("id"));
 	const [isLoading, setLoading] = useState(false);
-	const [error, setError] = useState(false);
 	const [products, setProducts] = useState([]);
 	const [selectProduct, setSelectProduct] = useState([]);
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-    const handleSelect = (p) => setSelectProduct(p);
-    const requestProduct = () => {
-        getFetch("get/all/products").then((data) => {
+	const handleSelect = (p) => setSelectProduct(p);
+	const requestProduct = (filter) => {
+		getFetch("get/all/products").then((data) => {
 			if (!data) {
-				return setError(true);
+				return;
 			}
 			setProducts(data.productsDB);
 			setLoading(true);
 		});
-    }
+	};
 	useEffect(() => {
 		!sessionID && history.push("/");
-		requestProduct()
+		requestProduct("all");
 	}, []);
 	return (
 		<>
 			<NavBar />
 			<Jumbotron />
+
 			<Modal
 				show={show}
 				onHide={handleClose}
@@ -47,7 +47,10 @@ export default function Dashboard() {
 					<Modal.Title>Modal title</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<FormProductAdd product={selectProduct} requestProduct={requestProduct} />
+					<FormProductEdit
+						product={selectProduct}
+						requestProduct={requestProduct}
+					/>
 				</Modal.Body>
 			</Modal>
 			{isLoading ? (
@@ -57,6 +60,7 @@ export default function Dashboard() {
 							products={products}
 							handleShow={handleShow}
 							handleSelect={handleSelect}
+							requestProduct={requestProduct}
 						/>
 					</>
 				) : (

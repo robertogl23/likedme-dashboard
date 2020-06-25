@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Form, Col, Button, Alert } from "react-bootstrap";
 import { putFetch } from "../api/app";
-export default function FormProductAdd({ product, requestProduct }) {
+export default function FormProductEdit({ product, requestProduct }) {
 	const { register, handleSubmit } = useForm();
 	const [isLoading, setLoading] = React.useState(false);
 	const [message, setMessage] = React.useState(false);
@@ -14,26 +14,26 @@ export default function FormProductAdd({ product, requestProduct }) {
 			name: data.name,
 			available: data.available,
 		};
-    setLoading(true);
+		setLoading(true);
 
 		putFetch(obj, `update/product/${data._id}`).then((resp) => {
-      setLoading(false);
+			setLoading(false);
 			if (!resp.status) {
 				return setMessage(true);
-      }
-      setMessage(true)
-      requestProduct()
-      setTimeout(()=> {
-        setMessage(false);
-      },3000)
+			}
+			setMessage(true);
+			requestProduct();
+			setTimeout(() => {
+				setMessage(false);
+			}, 3000);
 		});
 	};
 	return (
 		<Form>
-      {
-        message && (<Alert variant='success'>This is a alert—check it out!</Alert>)
-      }
-			
+			{message && (
+				<Alert variant='success'>This is a alert—check it out!</Alert>
+			)}
+
 			<Form.Row>
 				<Form.Group as={Col} controlId='formGridEmail'>
 					<Form.Label>ID Producto</Form.Label>
