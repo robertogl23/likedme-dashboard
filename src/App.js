@@ -1,12 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter, Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import {AppContextProvider} from "./context/AppContext";
 function App() {
   return (
     <AppContextProvider>
-      <Router>
+      <HashRouter basename="/">
         <div className="App">
           <Switch>
             <Route exact path="/">
@@ -17,7 +17,7 @@ function App() {
             </Route>
           </Switch>
         </div>
-      </Router>
+      </HashRouter>
     </AppContextProvider>
   );
 }
