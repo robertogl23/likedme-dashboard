@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/likedme-dashboard/precache-manifest.30d32394494a087034663f517966820e.js"
+  "/likedme-dashboard/precache-manifest.c12d935afcc35f638c7699d7d801d6be.js"
 );
 
 self.addEventListener('message', (event) => {
